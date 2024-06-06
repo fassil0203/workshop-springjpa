@@ -12,6 +12,8 @@ import com.educando.web.course.repositories.UserRepository;
 import com.educando.web.course.services.exceptions.DatabaseException;
 import com.educando.web.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 
@@ -46,7 +48,7 @@ public class UserService {
 			User entity = repository.getReferenceById(id);
 			updateData(entity, obj);
 			return repository.save(entity);
-		} catch (RuntimeException e) {
+		} catch (EntityNotFoundException e) {
 			e.printStackTrace();
 			throw new ResourceNotFoundException(id);
 		}
